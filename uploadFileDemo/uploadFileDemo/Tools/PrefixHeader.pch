@@ -1,0 +1,25 @@
+
+//
+//  PrefixHeader.pch
+//  uploadFileDemo
+//
+//  Created by hyjet on 2018/3/5.
+//  Copyright © 2018年 uploadFileDemo. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define screenSize [UIScreen mainScreen].bounds.size
+#define screenWidth [UIScreen mainScreen].bounds.size.width
+#define screenHeight [UIScreen mainScreen].bounds.size.height
+
+
+#define BASE_URL @"URL"
+#define TAPI @"URL"
+#define DAPI @"URL"
+#define PAPI @"URL"
+
+#define CURRENT_API PAPI
+
+#endif /* PrefixHeader_pch */
