@@ -15,10 +15,10 @@
 #define screenHeight [UIScreen mainScreen].bounds.size.height
 
 
-#define BASE_URL @"http://babytest.whmodern.cn/whxxcep-01-web/api"
-#define TAPI @"http://babytest.whmodern.cn/whxxcep-01-web/api/teacher"
-#define DAPI @"http://192.168.110.38:8080/whxxcep-01-web/api/teacher"
-#define PAPI @"http://cep.whmodern.cn/whxxcep-01-web/api/teacher"
+#define BASE_URL @""
+#define TAPI @""
+#define DAPI @""
+#define PAPI @""
 
 #define CURRENT_API PAPI
 
