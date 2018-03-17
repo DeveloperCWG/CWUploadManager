@@ -1,9 +1,9 @@
 //
 //  CWUploadTask.m
-//  uploadFileDemo
+//  CWPlayer
 //
-//  Created by hyjet on 2018/3/9.
-//  Copyright © 2018年 uploadFileDemo. All rights reserved.
+//  Created by hyjet on 2017/10/12.
+//  Copyright © 2017年 CWPlayer. All rights reserved.
 //
 
 #import "CWUploadTask.h"
@@ -26,6 +26,11 @@
 #define REPEAT_MAX 3
 
 #define plistPath [[CWFileManager cachesDir] stringByAppendingPathComponent:uploadPlist]
+
+NSString *const CWUploadTaskExeing = @"TaskExeing";
+NSString *const CWUploadTaskExeError = @"TaskExeError";
+NSString *const CWUploadTaskExeEnd = @"TaskExeEnd";
+NSString *const CWUploadTaskExeSuspend = @"TaskExeSuspend";
 
 @interface CWUploadTask ()
 
@@ -198,6 +203,7 @@
     
     if (_fileStream.fileStatus == CWUploadStatusFinished && _successBlock) {
         _successBlock(_fileStream);
+        [self sendNotionWithKey:CWUploadTaskExeEnd userInfo:@{@"fileStream":_fileStream}];
         return;
     };
     for (NSInteger i=0; i<_fileStream.streamFragments.count; i++) {
@@ -208,6 +214,7 @@
                 NSData *data = [_fileStream readDateOfFragment:fragment];
                 __weak typeof(self) weekSelf = self;
                 [_param setObject:[NSString stringWithFormat:@"%zd",(i+1)] forKey:_chunkNumName];
+                self.lastParam = _param;
 //                NSLog(@"*******参数*******\n%@",_param);
                 [self uploadTaskWithUrl:_url param:_param uploadData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
@@ -216,11 +223,10 @@
                         fragment.fragmentStatus = YES;
                         _fileStream.fileStatus = CWUploadStatusUpdownloading;
                         [weekSelf archTaskFileStream];
-                        weekSelf.lastParam = _param;
                         weekSelf.chunkNo = i+1;
-                        dispatch_async(dispatch_get_main_queue(), ^{
+                        dispatch_sync(dispatch_get_main_queue(), ^{
                             if (_finishBlock) _finishBlock(_fileStream,nil);
-                            [self sendNotionWithKey:@"CWUploadTaskExeing" userInfo:@{@"fileStream":_fileStream,@"lastParam":_lastParam,@"indexNo":@(_chunkNo)}];
+                            [weekSelf sendNotionWithKey:CWUploadTaskExeing userInfo:@{@"fileStream":_fileStream,@"lastParam":_lastParam,@"indexNo":@(_chunkNo)}];
                         });
                         dispatch_semaphore_signal(semaphore);
                     }else{
@@ -229,9 +235,9 @@
                             [weekSelf startExe];
                         }else{
                             _fileStream.fileStatus = CWUploadStatusFailed;
-                            dispatch_async(dispatch_get_main_queue(), ^{
+                            dispatch_sync(dispatch_get_main_queue(), ^{
                                 if (_finishBlock) _finishBlock(_fileStream,error);
-                                [self sendNotionWithKey:@"CWUploadTaskExeError" userInfo:@{@"fileStream":_fileStream,@"error":error}];
+                                [weekSelf sendNotionWithKey:CWUploadTaskExeError userInfo:@{@"fileStream":_fileStream,@"error":error}];
                             });
                             [weekSelf deallocSession];
                             return;
@@ -246,7 +252,10 @@
     dispatch_group_notify(group, queue, ^{
         _fileStream.fileStatus = CWUploadStatusFinished;
         [self archTaskFileStream];
-         if (_finishBlock) _finishBlock(_fileStream,nil);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if (_finishBlock) _finishBlock(_fileStream,nil);
+            [self sendNotionWithKey:CWUploadTaskExeEnd userInfo:@{@"fileStream":_fileStream}];
+        });
         [self deallocSession];
     });
 }
@@ -257,7 +266,7 @@
         _fileStream.fileStatus = CWUploadStatusWaiting;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (_successBlock)  _successBlock(_fileStream);
-            [self sendNotionWithKey:@"CWUploadTaskExeEnd" userInfo:@{@"fileStream":_fileStream}];
+            [self sendNotionWithKey:CWUploadTaskExeEnd userInfo:@{@"fileStream":_fileStream}];
         });
         return;
     }
@@ -270,7 +279,7 @@
     _isSuspendedState = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_finishBlock) _finishBlock(_fileStream,nil);
-        [self sendNotionWithKey:@"CWUploadTaskExeSuspend" userInfo:@{@"fileStream":_fileStream}];
+        [self sendNotionWithKey:CWUploadTaskExeSuspend userInfo:@{@"fileStream":_fileStream}];
     });
     if (!_uploadTask) return;
     [self.uploadTask suspend];

@@ -50,10 +50,6 @@
 }
 
 - (IBAction)startExeUpload:(UIButton *)sender {
-    if (!self.videoPathLab.text) {
-        NSLog(@"请选择文件");
-        return;
-    }
     CWUploadTask *task = [[CWFileUploadManager shardUploadManager] createUploadTask:self.videoPathLab.text];
     [task taskResume];
 }

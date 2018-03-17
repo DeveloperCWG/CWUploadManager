@@ -1,13 +1,27 @@
 //
 //  CWUploadTask.h
-//  uploadFileDemo
+//  CWPlayer
 //
-//  Created by hyjet on 2018/3/9.
-//  Copyright © 2018年 uploadFileDemo. All rights reserved.
+//  Created by hyjet on 2017/10/12.
+//  Copyright © 2017年 CWPlayer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 @class CWFileStreamSeparation;
+
+#ifdef __cplusplus
+#define TASK_EXTERN        extern "C" __attribute__((visibility ("default")))
+#else
+#define TASK_EXTERN            extern __attribute__((visibility ("default")))
+#endif
+
+/**
+ 通知监听上传状态的key
+ */
+TASK_EXTERN NSString * _Nonnull const CWUploadTaskExeing;//上传中
+TASK_EXTERN NSString * _Nonnull const CWUploadTaskExeError;//上传失败
+TASK_EXTERN NSString * _Nonnull const CWUploadTaskExeEnd;//上传完成
+TASK_EXTERN NSString * _Nonnull const CWUploadTaskExeSuspend;//上传暂停/取消
 
 typedef void(^finishHandler)(CWFileStreamSeparation * _Nullable fileStream, NSError * _Nullable error);
 

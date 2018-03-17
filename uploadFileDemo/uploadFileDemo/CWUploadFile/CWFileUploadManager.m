@@ -1,9 +1,9 @@
 //
 //  CWFileUploadManager.m
-//  uploadFileDemo
+//  CWPlayer
 //
-//  Created by hyjet on 2018/3/9.
-//  Copyright © 2018年 uploadFileDemo. All rights reserved.
+//  Created by hyjet on 2017/10/12.
+//  Copyright © 2017年 CWPlayer. All rights reserved.
 //
 
 #import "CWFileUploadManager.h"
@@ -241,7 +241,7 @@ static CWFileUploadManager * _instance;
     return dic;
 }
 
-#pragma create task
+#pragma 工具方法
 - (CWUploadTask *)continuePerformTaskWithFilePath:(NSString *)path{
     
     //获取任务数据字段
@@ -284,9 +284,9 @@ static CWFileUploadManager * _instance;
 - (void)registeNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeEnd:) name:@"CWUploadTaskExeEnd" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeEnd:) name:CWUploadTaskExeEnd object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeError:) name:@"CWUploadTaskExeError" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeError:) name:CWUploadTaskExeError object:nil];
 }
 
 //app启动或者app从后台进入前台都会调用这个方法

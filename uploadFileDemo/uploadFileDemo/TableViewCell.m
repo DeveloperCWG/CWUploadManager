@@ -38,6 +38,7 @@ static NSString *cellId = @"taskCell";
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil] lastObject];
     }
+    [cell registeNotification];
     return cell;
 }
 
@@ -45,13 +46,7 @@ static NSString *cellId = @"taskCell";
 {
     _uploadTask = uploadTask;
     [self refreshUI:_uploadTask.fileStream];
-    [_uploadTask listenTaskExeCallback:^(CWFileStreamSeparation * _Nullable fileStream, NSError * _Nullable error) {
-        [self refreshUI:fileStream];
-    } success:^(CWFileStreamSeparation * _Nullable fileStream) {
-        [self refreshUI:fileStream];
-    }];
 }
-
 
 #pragma mark - refresh UI
 - (void)refreshUI:(CWFileStreamSeparation *)fileStream{
@@ -85,6 +80,38 @@ static NSString *cellId = @"taskCell";
     }
 }
 
+- (void)registeNotification{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeIng:) name:CWUploadTaskExeing object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeEnd:) name:CWUploadTaskExeEnd object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeError:) name:CWUploadTaskExeError object:nil];
+}
+
+- (void)taskExeIng:(NSNotification *)notification
+{
+    [self refreshUI:notification.userInfo[@"fileStream"]];
+}
+
+- (void)taskExeEnd:(NSNotification *)notification
+{
+    CWFileStreamSeparation *fs = notification.userInfo.allValues.firstObject;
+    [self refreshUI:fs];
+}
+
+- (void)taskExeError:(NSNotification *)notification
+{
+    CWFileStreamSeparation *fs = notification.userInfo[@"fileStream"];
+    NSError *error = (NSError *)notification.userInfo[@"error"];
+    NSLog(@"%@,%@",fs,error);
+    
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
