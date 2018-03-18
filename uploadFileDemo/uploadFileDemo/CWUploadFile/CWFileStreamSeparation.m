@@ -1,9 +1,9 @@
 //
 //  CWFileStreamSeparation.m
-//  CWPlayer
+//  uploadFileDemo
 //
-//  Created by hyjet on 2017/10/12.
-//  Copyright © 2017年 CWPlayer. All rights reserved.
+//  Created by hyjet on 2018/3/9.
+//  Copyright © 2018年 uploadFileDemo. All rights reserved.
 //
 
 #import "CWFileStreamSeparation.h"

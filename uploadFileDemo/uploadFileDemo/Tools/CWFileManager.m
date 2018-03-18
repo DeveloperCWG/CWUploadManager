@@ -1,13 +1,10 @@
 //
-//  CWFileManager.m
-//  FMRecordVideo
+//  CWUploadTask.m
+//  uploadFileDemo
 //
-//  Created by qianjn on 2017/3/12.
-//  Copyright © 2017年 SF. All rights reserved.
-//
-//  Github:https://github.com/suifengqjn
-//  blog:http://gcblog.github.io/
-//  简书:http://www.jianshu.com/u/527ecf8c8753
+//  Created by hyjet on 2018/3/9.
+//  Copyright © 2018年 uploadFileDemo. All rights reserved.
+
 #import "CWFileManager.h"
 
 @interface CWFileManager ()
