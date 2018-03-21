@@ -146,7 +146,7 @@ done:
     _fileStatus = fileStatus;
     for (NSInteger num = 0; num<_streamFragments.count; num++) {
         CWStreamFragment *ft = _streamFragments[num];
-        if (num ==_streamFragments.count-1 && !ft.fragmentStatus) {
+        if (num ==_streamFragments.count-1) {
             _progressRate = (num+1.0)/_streamFragments.count;
             _uploadDateSize = self.fileSize;
             break;

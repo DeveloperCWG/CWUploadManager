@@ -77,7 +77,6 @@
 {
     CWUploadTask *task = self.taskArr[indexPath.row];
     CWFileStreamSeparation *fs = task.fileStream;
-    NSLog(@"%zd",fs.fileStatus);
     switch (fs.fileStatus) {
         case CWUploadStatusWaiting:
             NSLog(@"启动上传");

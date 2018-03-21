@@ -35,6 +35,7 @@
             }
             NSMutableDictionary *tmpParam = [NSMutableDictionary dictionary];
             [tmpParam setDictionary:dict[@"data"]];
+            NSLog(@"%@",tmpParam);
             paramBlock(@"chunk",tmpParam);
         }
     }];

@@ -50,6 +50,9 @@ static NSString *cellId = @"taskCell";
 
 #pragma mark - refresh UI
 - (void)refreshUI:(CWFileStreamSeparation *)fileStream{
+    if (![fileStream.md5String isEqualToString:_uploadTask.ID]) {
+        return;
+    }
     switch (fileStream.fileStatus) {
         case CWUploadStatusUpdownloading:
             _statusText = @"上传中...";
@@ -87,9 +90,16 @@ static NSString *cellId = @"taskCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeEnd:) name:CWUploadTaskExeEnd object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeError:) name:CWUploadTaskExeError object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeSupend:) name:CWUploadTaskExeSuspend object:nil];
 }
 
 - (void)taskExeIng:(NSNotification *)notification
+{
+    [self refreshUI:notification.userInfo[@"fileStream"]];
+}
+
+- (void)taskExeSupend:(NSNotification *)notification
 {
     [self refreshUI:notification.userInfo[@"fileStream"]];
 }
@@ -105,7 +115,6 @@ static NSString *cellId = @"taskCell";
     CWFileStreamSeparation *fs = notification.userInfo[@"fileStream"];
     NSError *error = (NSError *)notification.userInfo[@"error"];
     NSLog(@"%@,%@",fs,error);
-    
 }
 
 -(void)dealloc
