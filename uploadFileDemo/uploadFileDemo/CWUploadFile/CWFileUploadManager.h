@@ -55,7 +55,7 @@
  
  @param fileStream 上传文件的路径
  */
-- (void)pauseUploadWithUrl:(CWFileStreamSeparation *_Nonnull)fileStream;
+- (void)pauseUploadTask:(CWFileStreamSeparation *_Nonnull)fileStream;
 
 /**
  继续开始一个上传任务

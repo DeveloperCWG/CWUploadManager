@@ -219,25 +219,25 @@ NSString *const CWUploadTaskExeSuspend = @"TaskExeSuspend";
                 [self uploadTaskWithUrl:_url param:_param uploadData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
                     if (!error && httpResponse.statusCode==200) {
-                        _taskRepeatNum = 0;
+                        weekSelf.taskRepeatNum = 0;
                         fragment.fragmentStatus = YES;
-                        _fileStream.fileStatus = CWUploadStatusUpdownloading;
+                        weekSelf.fileStream.fileStatus = CWUploadStatusUpdownloading;
                         [weekSelf archTaskFileStream];
                         weekSelf.chunkNo = i+1;
                         dispatch_sync(dispatch_get_main_queue(), ^{
-                            if (_finishBlock) _finishBlock(_fileStream,nil);
-                            [weekSelf sendNotionWithKey:CWUploadTaskExeing userInfo:@{@"fileStream":_fileStream,@"lastParam":_lastParam,@"indexNo":@(_chunkNo)}];
+                            if (weekSelf.finishBlock) weekSelf.finishBlock(weekSelf.fileStream,nil);
+                            [weekSelf sendNotionWithKey:CWUploadTaskExeing userInfo:@{@"fileStream":weekSelf.fileStream,@"lastParam":weekSelf.lastParam,@"indexNo":@(weekSelf.chunkNo)}];
                         });
                         dispatch_semaphore_signal(semaphore);
                     }else{
-                        if (_taskRepeatNum<REPEAT_MAX) {
-                            _taskRepeatNum++;
+                        if (weekSelf.taskRepeatNum<REPEAT_MAX) {
+                            weekSelf.taskRepeatNum++;
                             [weekSelf startExe];
                         }else{
-                            _fileStream.fileStatus = CWUploadStatusFailed;
+                            weekSelf.fileStream.fileStatus = CWUploadStatusFailed;
                             dispatch_sync(dispatch_get_main_queue(), ^{
-                                if (_finishBlock) _finishBlock(_fileStream,error);
-                                [weekSelf sendNotionWithKey:CWUploadTaskExeError userInfo:@{@"fileStream":_fileStream,@"error":error}];
+                                if (weekSelf.finishBlock) weekSelf.finishBlock(weekSelf.fileStream,error);
+                                [weekSelf sendNotionWithKey:CWUploadTaskExeError userInfo:@{@"fileStream":weekSelf.fileStream,@"error":error}];
                             });
                             [weekSelf deallocSession];
                             return;

@@ -15,7 +15,6 @@
 		1334BAE1204D1197002A48B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BAE0204D1197002A48B5 /* main.m */; };
 		1334BAEB204D1197002A48B5 /* uploadFileDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BAEA204D1197002A48B5 /* uploadFileDemoTests.m */; };
 		1334BAF6204D1197002A48B5 /* uploadFileDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BAF5204D1197002A48B5 /* uploadFileDemoUITests.m */; };
-		1334BB11204D16AA002A48B5 /* CWFileStreamSeparation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BB09204D16A9002A48B5 /* CWFileStreamSeparation.m */; };
 		1334BB12204D16AA002A48B5 /* CWFileUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BB0B204D16A9002A48B5 /* CWFileUploadManager.m */; };
 		1334BB13204D16AA002A48B5 /* CWUploadTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BB0D204D16A9002A48B5 /* CWUploadTask.m */; };
 		1334BB14204D16AA002A48B5 /* CWFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BB10204D16AA002A48B5 /* CWFileManager.m */; };
@@ -23,6 +22,7 @@
 		1334BB1C204D234F002A48B5 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BB1A204D234F002A48B5 /* TableViewCell.m */; };
 		1334BB1D204D234F002A48B5 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1334BB1B204D234F002A48B5 /* TableViewCell.xib */; };
 		1334BB2120521480002A48B5 /* CWUploadTask+CheckInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1334BB2020521480002A48B5 /* CWUploadTask+CheckInfo.m */; };
+		DDE9765C2087324B004E8717 /* CWFileStreamSeparation.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9765B2087324B004E8717 /* CWFileStreamSeparation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,6 @@
 		1334BAF5204D1197002A48B5 /* uploadFileDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = uploadFileDemoUITests.m; sourceTree = "<group>"; };
 		1334BAF7204D1197002A48B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1334BB08204D16A9002A48B5 /* CWFileStreamSeparation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWFileStreamSeparation.h; sourceTree = "<group>"; };
-		1334BB09204D16A9002A48B5 /* CWFileStreamSeparation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWFileStreamSeparation.m; sourceTree = "<group>"; };
 		1334BB0A204D16A9002A48B5 /* CWFileUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWFileUploadManager.h; sourceTree = "<group>"; };
 		1334BB0B204D16A9002A48B5 /* CWFileUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWFileUploadManager.m; sourceTree = "<group>"; };
 		1334BB0C204D16A9002A48B5 /* CWUploadTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWUploadTask.h; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		1334BB1B204D234F002A48B5 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		1334BB1F20521480002A48B5 /* CWUploadTask+CheckInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CWUploadTask+CheckInfo.h"; sourceTree = "<group>"; };
 		1334BB2020521480002A48B5 /* CWUploadTask+CheckInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CWUploadTask+CheckInfo.m"; sourceTree = "<group>"; };
+		DDE9765B2087324B004E8717 /* CWFileStreamSeparation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWFileStreamSeparation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				1334BB08204D16A9002A48B5 /* CWFileStreamSeparation.h */,
-				1334BB09204D16A9002A48B5 /* CWFileStreamSeparation.m */,
+				DDE9765B2087324B004E8717 /* CWFileStreamSeparation.m */,
 				1334BB0A204D16A9002A48B5 /* CWFileUploadManager.h */,
 				1334BB0B204D16A9002A48B5 /* CWFileUploadManager.m */,
 				1334BB0C204D16A9002A48B5 /* CWUploadTask.h */,
@@ -325,12 +325,12 @@
 				1334BB12204D16AA002A48B5 /* CWFileUploadManager.m in Sources */,
 				1334BAD6204D1197002A48B5 /* ViewController.m in Sources */,
 				1334BB14204D16AA002A48B5 /* CWFileManager.m in Sources */,
+				DDE9765C2087324B004E8717 /* CWFileStreamSeparation.m in Sources */,
 				1334BAE1204D1197002A48B5 /* main.m in Sources */,
 				1334BB1C204D234F002A48B5 /* TableViewCell.m in Sources */,
 				1334BB13204D16AA002A48B5 /* CWUploadTask.m in Sources */,
 				1334BB2120521480002A48B5 /* CWUploadTask+CheckInfo.m in Sources */,
 				1334BAD3204D1197002A48B5 /* AppDelegate.m in Sources */,
-				1334BB11204D16AA002A48B5 /* CWFileStreamSeparation.m in Sources */,
 				1334BB18204D2316002A48B5 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
